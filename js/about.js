@@ -9,7 +9,7 @@ function parseTweets(runkeeper_tweets) {
 		return new Tweet(tweet.text, tweet.created_at);
 	});
 
-	// --- First/Last date (robust parsing) ---
+	//First/Last date
 	function parseToDateMs(s) {
 		if (!s) return NaN;
 		let d = new Date(s);
