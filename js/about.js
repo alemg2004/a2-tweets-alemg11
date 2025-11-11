@@ -4,12 +4,12 @@ function parseTweets(runkeeper_tweets) {
 		return;
 	}
 
-	// Build Tweet objects
+	// Build Tweet objs
 	tweet_array = runkeeper_tweets.map(function (tweet) {
 		return new Tweet(tweet.text, tweet.created_at);
 	});
 
-	//First/Last date
+	//1st and latest date
 	function parseToDateMs(s) {
 		if (!s) return NaN;
 		let d = new Date(s);
@@ -29,17 +29,17 @@ function parseTweets(runkeeper_tweets) {
 	if (times.length) {
 		const first = new Date(Math.min(...times));
 		const last = new Date(Math.max(...times));
-		const fmt = d => d.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+		const fmt = d => d.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
 		const firstEl = document.getElementById('firstDate');
 		const lastEl = document.getElementById('lastDate');
 		if (firstEl) firstEl.innerText = fmt(first);
 		if (lastEl) lastEl.innerText = fmt(last);
 	}
 
-	// Total tweets
+	// Tot tweets
 	document.getElementById('numberTweets').innerText = tweet_array.length;
 
-	// Category counts
+	// Cat count
 	let completed = 0, live = 0, achievements = 0, misc = 0, writtenCompleted = 0;
 	tweet_array.forEach(t => {
 		if (t.source === 'completed_event') {
@@ -58,7 +58,7 @@ function parseTweets(runkeeper_tweets) {
 	const total = tweet_array.length;
 	const pct = (x) => ((100 * x) / total).toFixed(2) + '%';
 
-	// Write to DOM
+	// DOM
 	document.querySelectorAll('.completedEvents').forEach(el => el.innerText = completed);
 	document.querySelectorAll('.completedEventsPct').forEach(el => el.innerText = pct(completed));
 
